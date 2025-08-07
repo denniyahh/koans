@@ -14,11 +14,20 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  raise TriangleError if [a, b, c].all?(&:zero?) ||
+                        [a, b, c].any?(&:negative?) ||
+                        !valid_triangle?(a, b, c)
   case [a, b, c].uniq.size
   when 1 then :equilateral
   when 2 then :isosceles
   else :scalene
   end
+end
+
+private
+
+def valid_triangle?(a, b, c)
+  a + b > c && a + c > b && b + c > a
 end
 
 # Error class used in part 2.  No need to change this code.
